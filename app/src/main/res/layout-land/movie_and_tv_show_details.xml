@@ -77,15 +77,14 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/fab"
-                        android:layout_toRightOf="@+id/cardview"
-                        android:layout_marginLeft="@dimen/content_details_baseline_margin"
-                        android:layout_marginStart="@dimen/content_details_baseline_margin"
                         android:layout_marginBottom="@dimen/content_details_area_margin"
                         android:layout_marginTop="@dimen/content_details_title_margin_top"
-                        android:paddingRight="@dimen/content_details_baseline_margin"
+                        android:paddingLeft="@dimen/content_details_baseline_margin"
+                        android:paddingRight="@dimen/content_details_area_right_padding"
                         android:layout_toLeftOf="@+id/fab"
-                        android:layout_toStartOf="@+id/fab"
-                        android:id="@+id/linearLayout">
+                        android:id="@+id/linearLayout"
+                        android:layout_alignLeft="@+id/details_area"
+                        android:layout_alignStart="@+id/details_area">
 
                         <TextView
                             android:id="@+id/movieTitle"
