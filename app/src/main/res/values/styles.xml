@@ -31,6 +31,7 @@
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="colorControlNormal">#aaffffff</item>
         <item name="colorControlActivated">#fff</item>
