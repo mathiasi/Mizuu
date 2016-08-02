@@ -149,7 +149,7 @@ public class MovieIdentification {
                         try {
                             results = service.search(apiKey, ms.getDecryptedFilename(), null,
                                     null, null, year, null).execute().body().getResults();
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -160,7 +160,7 @@ public class MovieIdentification {
                     try {
                         results = service.search(apiKey, ms.getDecryptedFilename(), null,
                                 null, null, null, null).execute().body().getResults();
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -172,7 +172,7 @@ public class MovieIdentification {
                         try {
                             results = service.search(apiKey, ms.getDecryptedParentFolderName(), null,
                                     null, null, year, null).execute().body().getResults();
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -183,7 +183,7 @@ public class MovieIdentification {
                     try {
                         results = service.search(apiKey, ms.getDecryptedParentFolderName(), null,
                                 null, null, null, null).execute().body().getResults();
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -191,7 +191,7 @@ public class MovieIdentification {
                 try {
                     movie = service.getMovie(getMovieId(), apiKey, mLocale, null).execute().body();
 
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -200,7 +200,7 @@ public class MovieIdentification {
                 // Automatic library update
                 try {
                     movie = service.getFullMovie(results.get(0).getId(), apiKey, mLocale).execute().body();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
