@@ -35,11 +35,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,6 +61,7 @@ import com.melnykov.fab.FloatingActionButton;
 import com.miz.abstractclasses.MovieApiService;
 import com.miz.apis.trakt.Trakt;
 import com.miz.base.MizActivity;
+import com.miz.cast.Videoplayer;
 import com.miz.db.DbAdapterMovies;
 import com.miz.functions.Actor;
 import com.miz.functions.FileSource;
@@ -97,6 +100,7 @@ import static com.miz.functions.PreferenceKeys.SHOW_FILE_LOCATION;
 
 public class MovieDetailsFragment extends Fragment {
 
+    private static final String TAG = MovieDetailsFragment.class.getSimpleName();
     private Activity mContext;
     private Movie mMovie;
     private DbAdapterMovies mDatabase;
@@ -248,12 +252,30 @@ public class MovieDetailsFragment extends Fragment {
         mFab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Play");
+                Log.d(TAG, mMovie.getAllFilepaths());
+
+                ArrayList<Filepath> filepaths = mMovie.getFilepaths();
+                for (Filepath filepath: filepaths) {
+                    Log.d(TAG, "filepath: " + filepath.getFullFilepath());
+                }
+
+                Intent intent = new Intent(getActivity(), Videoplayer.class);
+                intent.putExtra("videoUrl", mMovie.getFilepaths().get(0).getFilepath());
+                startActivity(intent);
+
+            }
+        });
+        mFab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
                 ViewUtils.animateFabJump(v, new SimpleAnimatorListener() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         playMovie();
                     }
                 });
+                return true;
             }
         });
         if (MizLib.isTablet(mContext))
@@ -473,6 +495,7 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.movie_details, menu);
+        notifyListeners(menu);
 
         // If this is a tablet, we have more room to display icons
         if (MizLib.isTablet(mContext)) {
@@ -1005,5 +1028,35 @@ public class MovieDetailsFragment extends Fragment {
         public int getPartNumber() {
             return MizLib.getPartNumberFromFilepath(getUserFilepath());
         }
+    }
+
+
+    /*
+    QUICK FIX SECTION
+    Needs to notify when menu has been inflated - MovieDetails needs to know when to register Cast
+    button
+     */
+    private List<OnMenuInflatedListener> listeners = new ArrayList<>();
+
+    public void registerListener(OnMenuInflatedListener listener){
+        listeners.add(listener);
+    }
+
+    public void removeListener(OnMenuInflatedListener listener){
+        listeners.remove(listener);
+    }
+
+    private void notifyListeners(Menu menu){
+        for (OnMenuInflatedListener listener : listeners) {
+            if(listener != null){
+                listener.inflated(menu);
+            } else {
+                removeListener(listener);
+            }
+        }
+    }
+
+    public interface OnMenuInflatedListener{
+        void inflated(Menu menu);
     }
 }

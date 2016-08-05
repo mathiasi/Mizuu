@@ -21,22 +21,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.cast.framework.CastButtonFactory;
+import com.google.android.gms.cast.framework.CastContext;
 import com.miz.base.MizActivity;
 import com.miz.mizuu.fragments.MovieDetailsFragment;
 import com.miz.utils.ViewUtils;
 
 public class MovieDetails extends MizActivity {
 
+	private final static String LTAG = MovieDetails.class.getSimpleName();
 	private static String TAG = "MovieDetailsFragment";
 	private int mMovieId;
+	private CastContext mCastContext;
+
+	private MenuItem mediaRouteMenuItem;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+		mCastContext = CastContext.getSharedInstance(this);
 
         // Set theme
         setTheme(R.style.Mizuu_Theme_NoBackground);
@@ -55,7 +65,14 @@ public class MovieDetails extends MizActivity {
 		Fragment frag = getSupportFragmentManager().findFragmentByTag(TAG);
 		if (frag == null) {
 			final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-			ft.add(android.R.id.content, MovieDetailsFragment.newInstance(mMovieId), TAG);
+			MovieDetailsFragment movieDetailsFragment = MovieDetailsFragment.newInstance(mMovieId);
+			movieDetailsFragment.registerListener(new MovieDetailsFragment.OnMenuInflatedListener() {
+				@Override
+				public void inflated(Menu menu) {
+					mediaRouteMenuItem = CastButtonFactory.setUpMediaRouteButton(getApplicationContext(), menu, R.id.media_route_menu_item);
+				}
+			});
+			ft.add(android.R.id.content, movieDetailsFragment, TAG);
 			ft.commit();
 		}
 	}
@@ -106,7 +123,7 @@ public class MovieDetails extends MizActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
+
 	@Override
 	protected int getLayoutResource() {
 		return 0;

@@ -428,5 +428,6 @@
     <string name="database_dump_title">Copy database</string>
     <string name="database_dump_description">Creates a copy of the database in the application folder.</string>
     <string name="database_copied">Database copied!</string>
+    <string name="media_route_menu_title">Play on&#8230;</string>
 
 </resources>

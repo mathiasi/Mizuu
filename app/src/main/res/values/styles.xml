@@ -96,4 +96,12 @@
 
     <style name="Mizuu.Theme.Dialog" parent="android:style/Theme.Holo.Dialog" />
 
+    <style name="VideoplayerTheme" parent="Theme.AppCompat.NoActionBar">
+
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+
+    </style>
+
 </resources>

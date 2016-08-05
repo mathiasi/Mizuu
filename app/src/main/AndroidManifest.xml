@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.miz.mizuu"
     android:versionCode="1033"
-    android:versionName="3.0.2-black" >
+    android:versionName="3.0.2-black">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -23,23 +23,32 @@
         android:smallScreens="false"
         android:xlargeScreens="true" />
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- Application -->
     <application
-        android:name="com.miz.mizuu.MizuuApplication"
+        android:name=".MizuuApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/menuicon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/Mizuu.Theme" >
+        android:theme="@style/Mizuu.Theme">
+        <meta-data
+            android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+            android:value="com.miz.cast.CastOptionsProvider" />
 
         <uses-library android:name="android.test.runner" />
 
         <!-- Show details activity -->
         <activity
-            android:name="com.miz.mizuu.TvShowDetails"
-            android:exported="true" >
+            android:name=".TvShowDetails"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
                 <action android:name="android.intent.action.SEARCH" />
@@ -52,20 +61,21 @@
 
         <!-- Splash activity -->
         <activity
-            android:name="com.miz.mizuu.SplashScreen"
+            android:name=".SplashScreen"
             android:hardwareAccelerated="false"
             android:noHistory="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- ImageViewer activity -->
         <activity
-            android:name="com.miz.mizuu.ImageViewer"
-            android:exported="false" >
+            android:name=".ImageViewer"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -73,8 +83,8 @@
 
         <!-- TvShowEpisodes activity -->
         <activity
-            android:name="com.miz.mizuu.TvShowEpisodes"
-            android:exported="false" >
+            android:name=".TvShowEpisodes"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -82,8 +92,8 @@
 
         <!-- TvShowSeasons activity -->
         <activity
-            android:name="com.miz.mizuu.TvShowSeasons"
-            android:exported="false" >
+            android:name=".TvShowSeasons"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -91,10 +101,10 @@
 
         <!-- Main activity -->
         <activity
-            android:name="com.miz.mizuu.Main"
+            android:name=".Main"
             android:exported="false"
             android:label="@string/app_name"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
                 <action android:name="android.intent.action.SEARCH" />
@@ -110,11 +120,11 @@
 
         <!-- Actor Search Activity. Used as a middle-man to circumvent the issue of having two searchables for one Activity. -->
         <activity
-            android:name="com.miz.mizuu.TvShowActorSearchActivity"
+            android:name=".TvShowActorSearchActivity"
             android:excludeFromRecents="true"
             android:hardwareAccelerated="false"
             android:noHistory="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
                 <action android:name="android.intent.action.SEARCH" />
@@ -130,25 +140,24 @@
 
         <!-- Collection activity -->
         <activity
-            android:name="com.miz.mizuu.MovieCollection"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="android.intent.action.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="com.miz.mizuu.MovieCoverFanartBrowser"
-            android:exported="false"
-            android:label="@string/browseMedia" >
+            android:name=".MovieCollection"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.miz.mizuu.ShowCoverFanartBrowser"
+            android:name=".MovieCoverFanartBrowser"
             android:exported="false"
-            android:label="@string/browseMedia" >
+            android:label="@string/browseMedia">
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ShowCoverFanartBrowser"
+            android:exported="false"
+            android:label="@string/browseMedia">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -156,8 +165,8 @@
 
         <!-- TMDB movie details view -->
         <activity
-            android:name="com.miz.mizuu.TMDbMovieDetails"
-            android:exported="false" >
+            android:name=".TMDbMovieDetails"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -165,8 +174,8 @@
 
         <!-- TV show episode details view -->
         <activity
-            android:name="com.miz.mizuu.TvShowEpisodeDetails"
-            android:exported="false" >
+            android:name=".TvShowEpisodeDetails"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -174,9 +183,9 @@
 
         <!-- Unidentified TV shows activity -->
         <activity
-            android:name="com.miz.mizuu.UnidentifiedTvShows"
+            android:name=".UnidentifiedTvShows"
             android:exported="false"
-            android:label="@string/unidentifiedFiles" >
+            android:label="@string/unidentifiedFiles">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -184,9 +193,9 @@
 
         <!-- Unidentified movies activity -->
         <activity
-            android:name="com.miz.mizuu.UnidentifiedMovies"
+            android:name=".UnidentifiedMovies"
             android:exported="false"
-            android:label="@string/unidentifiedFiles" >
+            android:label="@string/unidentifiedFiles">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -194,9 +203,9 @@
 
         <!-- Directory browser activity -->
         <activity
-            android:name="com.miz.mizuu.FileSources"
+            android:name=".FileSources"
             android:exported="false"
-            android:label="@string/fileSources" >
+            android:label="@string/fileSources">
             <intent-filter>
                 <action android:name="com.miz.mizuu.FileSources" />
 
@@ -206,11 +215,11 @@
 
         <!-- Add network file source dialog activity -->
         <activity
-            android:name="com.miz.mizuu.AddNetworkFilesourceDialog"
+            android:name=".AddNetworkFilesourceDialog"
             android:exported="false"
             android:hardwareAccelerated="false"
             android:label="@string/networkLogin"
-            android:theme="@style/Mizuu.Theme.Dialog" >
+            android:theme="@style/Mizuu.Theme.Dialog">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -218,11 +227,11 @@
 
         <!-- Add UPnP file source dialog activity -->
         <activity
-            android:name="com.miz.mizuu.AddUpnpFilesourceDialog"
+            android:name=".AddUpnpFilesourceDialog"
             android:exported="false"
             android:hardwareAccelerated="false"
             android:label="@string/select_upnp_server"
-            android:theme="@style/Mizuu.Theme.Dialog" >
+            android:theme="@style/Mizuu.Theme.Dialog">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -230,11 +239,11 @@
 
         <!-- Search for network shares -->
         <activity
-            android:name="com.miz.mizuu.SearchForNetworkShares"
+            android:name=".SearchForNetworkShares"
             android:exported="false"
             android:hardwareAccelerated="false"
             android:label="@string/lookingForNetworkSources"
-            android:theme="@style/Mizuu.Theme.Dialog" >
+            android:theme="@style/Mizuu.Theme.Dialog">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -242,10 +251,10 @@
 
         <!-- Directory browser activity -->
         <activity
-            android:name="com.miz.mizuu.FileSourceBrowser"
+            android:name=".FileSourceBrowser"
             android:exported="false"
             android:label="@string/addFileSource"
-            android:uiOptions="splitActionBarWhenNarrow" >
+            android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="com.miz.mizuu.FileSources" />
 
@@ -255,9 +264,8 @@
 
         <!-- Preferences activity -->
         <activity
-            android:name="com.miz.mizuu.Preferences"
-            android:label="@string/settings_name" >
-        </activity>
+            android:name=".Preferences"
+            android:label="@string/settings_name" />
 
         <service android:name="com.miz.service.DeleteFile" />
         <service android:name="com.miz.service.TraktMoviesSyncService" />
@@ -272,10 +280,10 @@
 
         <!-- Update activity -->
         <activity
-            android:name="com.miz.mizuu.Update"
+            android:name=".Update"
             android:exported="false"
             android:hardwareAccelerated="false"
-            android:label="@string/updateMoviesTitle" >
+            android:label="@string/updateMoviesTitle">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -283,8 +291,8 @@
 
         <!-- Movie Details activity -->
         <activity
-            android:name="com.miz.mizuu.MovieDetails"
-            android:exported="true" >
+            android:name=".MovieDetails"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
                 <action android:name="android.intent.action.SEARCH" />
@@ -297,10 +305,10 @@
 
         <!-- Edit Movie activity -->
         <activity
-            android:name="com.miz.mizuu.EditMovie"
+            android:name=".EditMovie"
             android:exported="false"
             android:hardwareAccelerated="false"
-            android:label="@string/stringEditMovie" >
+            android:label="@string/stringEditMovie">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -308,10 +316,10 @@
 
         <!-- Edit TV show activity -->
         <activity
-            android:name="com.miz.mizuu.EditTvShow"
+            android:name=".EditTvShow"
             android:exported="false"
             android:hardwareAccelerated="false"
-            android:label="@string/stringEditTvShow" >
+            android:label="@string/stringEditTvShow">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -319,10 +327,10 @@
 
         <!-- Edit TV show episode activity -->
         <activity
-            android:name="com.miz.mizuu.EditTvShowEpisode"
+            android:name=".EditTvShowEpisode"
             android:exported="false"
             android:hardwareAccelerated="false"
-            android:label="@string/stringEditTvShowEpisode" >
+            android:label="@string/stringEditTvShowEpisode">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -330,9 +338,9 @@
 
         <!-- Identify Movie activity -->
         <activity
-            android:name="com.miz.mizuu.IdentifyMovie"
+            android:name=".IdentifyMovie"
             android:exported="false"
-            android:label="@string/identifyMovieTitle" >
+            android:label="@string/identifyMovieTitle">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -340,9 +348,9 @@
 
         <!-- Identify TV show activity -->
         <activity
-            android:name="com.miz.mizuu.IdentifyTvShow"
+            android:name=".IdentifyTvShow"
             android:exported="false"
-            android:label="@string/identifyShow" >
+            android:label="@string/identifyShow">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -350,9 +358,9 @@
 
         <!-- Identify TV show episode activity -->
         <activity
-            android:name="com.miz.mizuu.IdentifyTvShowEpisode"
+            android:name=".IdentifyTvShowEpisode"
             android:exported="false"
-            android:label="@string/identifyEpisodeTitle" >
+            android:label="@string/identifyEpisodeTitle">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -360,9 +368,9 @@
 
         <!-- Add file source Activity -->
         <activity
-            android:name="com.miz.mizuu.AddFileSource"
+            android:name=".AddFileSource"
             android:exported="false"
-            android:title="@string/addFileSourceTitle" >
+            android:title="@string/addFileSourceTitle">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -370,9 +378,9 @@
 
         <!-- Actor activity -->
         <activity
-            android:name="com.miz.mizuu.ActorDetails"
+            android:name=".ActorDetails"
             android:exported="false"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -380,9 +388,9 @@
 
         <!-- Actor movies activity -->
         <activity
-            android:name="com.miz.mizuu.ActorMovies"
+            android:name=".ActorMovies"
             android:exported="false"
-            android:label="@string/chooserMovies" >
+            android:label="@string/chooserMovies">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -390,9 +398,9 @@
 
         <!-- Actor TV shows activity -->
         <activity
-            android:name="com.miz.mizuu.ActorTvShows"
+            android:name=".ActorTvShows"
             android:exported="false"
-            android:label="@string/chooserTVShows" >
+            android:label="@string/chooserTVShows">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -400,9 +408,9 @@
 
         <!-- Actor photos activity -->
         <activity
-            android:name="com.miz.mizuu.ActorPhotos"
+            android:name=".ActorPhotos"
             android:exported="false"
-            android:label="@string/actorsShowAllPhotos" >
+            android:label="@string/actorsShowAllPhotos">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -410,9 +418,9 @@
 
         <!-- Actor tagged photos activity -->
         <activity
-            android:name="com.miz.mizuu.ActorTaggedPhotos"
+            android:name=".ActorTaggedPhotos"
             android:exported="false"
-            android:label="@string/actorsTaggedPhotos" >
+            android:label="@string/actorsTaggedPhotos">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -420,9 +428,9 @@
 
         <!-- Actor browser activity (movies) -->
         <activity
-            android:name="com.miz.mizuu.ActorBrowser"
+            android:name=".ActorBrowser"
             android:exported="false"
-            android:label="@string/detailsActors" >
+            android:label="@string/detailsActors">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -430,9 +438,9 @@
 
         <!-- Actor browser activity (TV show) -->
         <activity
-            android:name="com.miz.mizuu.ActorBrowserTv"
+            android:name=".ActorBrowserTv"
             android:exported="false"
-            android:label="@string/detailsActors" >
+            android:label="@string/detailsActors">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -442,17 +450,17 @@
         <activity
             android:name=".SimilarMovies"
             android:exported="false"
-            android:label="@string/relatedMovies" >
+            android:label="@string/relatedMovies">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.miz.mizuu.CancelLibraryUpdate"
+            android:name=".CancelLibraryUpdate"
             android:excludeFromRecents="true"
             android:exported="false"
             android:noHistory="true"
-            android:theme="@style/Mizuu.Theme.Transparent.Dialog" >
+            android:theme="@style/Mizuu.Theme.Transparent.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
@@ -460,7 +468,7 @@
 
         <!-- Remote playback activity -->
 
-        <receiver android:name="com.miz.functions.StartScheduledUpdatesService" >
+        <receiver android:name="com.miz.functions.StartScheduledUpdatesService">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -482,6 +490,11 @@
             android:name="com.miz.contentprovider.TvShowActorContentProvider"
             android:authorities="com.miz.contentprovider.TvShowActorContentProvider"
             android:exported="false" />
+
+        <activity
+            android:name="com.miz.cast.Videoplayer"
+            android:configChanges="orientation|keyboardHidden|screenLayout|screenSize"
+            android:theme="@style/Mizuu.Theme.Base" />
     </application>
 
 </manifest>
